@@ -1,9 +1,9 @@
-import React from 'react'
-
-function FindHelp() {
+import React from 'react';
+import Slider from './Slider2';
+function App() {
   return (
-    <div>FindHelp</div>
-  )
+      <Slider/>
+  );
 }
 
-export default FindHelp
+export default App;
