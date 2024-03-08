@@ -8,6 +8,7 @@ import Services from './pages/Services.jsx'
 import FindHelp from './pages/FindHelp.jsx'
 import Resources from './pages/Resources.jsx'
 import Profile from './pages/Profile.jsx'
+import News from './pages/News.jsx'
 
 const router = createBrowserRouter([
     {
@@ -37,6 +38,10 @@ const router = createBrowserRouter([
             {
                 path: "*",
                 element: <h1>Wrong Path</h1>
+            },
+            {
+                path: "/News",
+                element: <News/>
             }
         ]
     }
