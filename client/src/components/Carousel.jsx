@@ -1,34 +1,13 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import pic1 from "../assets/pic1.jpg"
 import pic2 from "../assets/pic2.jpg"
 import pic3 from "../assets/pic3.jpg"
 import pic4 from "../assets/pic4.jpg"
-import { Button, Spinner } from "./index"
-import axios from "axios"
+import { Button } from "./index"
 
 function Carousel() {
 
-    const [headlines, setHeadlines] = useState([]);
-    const [articles, setArticles] = useState([]);
-    const [loading, setLoading] = useState(true);
-
-    useEffect(() => {
-        setLoading(true)
-            ; (async () => {
-                try {
-                    const headResponse = await axios.get("https://newsapi.org/v2/top-headlines?q=health&apiKey=0683efddcc9b4d739020691b27b2a593");
-                    setHeadlines(headResponse.data.articles);
-                    const articleResponse = await axios.get("https://newsapi.org/v2/everything?q=health&apiKey=0683efddcc9b4d739020691b27b2a593&pageSize=6")
-                    setArticles(articleResponse.data.articles);
-                    // console.log(headResponse.data.articles);
-                    // console.log(articleResponse.data.articles);
-                } catch (e) {
-                    console.log(e);
-                } finally {
-                    setLoading(false);
-                }
-            })()
-    }, [])
+    // const ref = useRef(null);
 
     useEffect(() => {
         const slider = document.getElementById('slider');
@@ -47,6 +26,10 @@ function Carousel() {
         return () => clearInterval();
     }, [])
 
+    const explore = () => {
+        window.scrollTo({top: 631, behavior: 'smooth'});
+    }
+
     return (
         <>
             <div className='w-[100vw] h-[100vh] relative overflow-hidden'>
@@ -55,7 +38,7 @@ function Carousel() {
                     <p className='text-2xl text-yellow-50 opacity-70 w-[70%] backdrop-blur-sm p-2 rounded-lg mb-[0%] font-bold mx-16 text-wrap'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Assumenda quis odio ab officiis minus rem accusamus cupiditate cumque praesentium quisquam! Doloribus quasi earum minus nesciunt, praesentium vero iusto nihil. Aperiam, eos eveniet! Ipsam delectus perferendis obcaecati nostrum dicta quo autem distinctio labore cum. Aperiam optio commodi nihil beatae quae inventore iure nemo sunt vel expedita.</p>
                     <div className='w-full ml-20 mt-8 mb-32'>
                         <Button className='mx-4 opacity-70'>Get Help</Button>
-                        <Button className='mx-4 opacity-70 text-center'>Explore More</Button>
+                        <Button className='mx-4 opacity-70 text-center' onClick={explore}>Explore More</Button>
                     </div>
                 </div>
                 <div className='w-full h-full absolute top-0 left-0 transition duration-300 scroll-smooth' id='slider'>
@@ -65,20 +48,7 @@ function Carousel() {
                     <img src={pic4} className='absolute left-[300%] top-0 w-full h-full object-cover' />
                 </div>
             </div>
-            {!loading ? <div className='w-full h-full flex items-center justify-start gap-10'>
 
-                <div className='w-[30%] h-full flex flex-col items-center justify-start'>
-
-                </div>
-                <div className='w-[60%] h-full flex flex-col items-center justify-start'>
-                    {articles.map((article, index) => (
-                        <div key={index} className='w-[80%] h-[20%] border-2'>
-                            <div>{article.title}</div>
-                            <p>{article.description}</p>
-                        </div>
-                    ))}
-                </div>
-            </div> : <Spinner />}
         </>
     )
 }
