@@ -6,8 +6,8 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom"
 import Home from './pages/Home.jsx'
 import Services from './pages/Services.jsx'
 import FindHelp from './pages/FindHelp.jsx'
-import Resources from './pages/Resources.jsx'
 import Profile from './pages/Profile.jsx'
+import Forum from './pages/Forum.jsx'
 
 const router = createBrowserRouter([
     {
@@ -27,8 +27,8 @@ const router = createBrowserRouter([
                 element: <FindHelp />
             },
             {
-                path: "/resources",
-                element: <Resources />
+                path: "/forum",
+                element: <Forum />
             },
             {
                 path: "/profile",
