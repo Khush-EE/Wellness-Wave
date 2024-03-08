@@ -6,12 +6,16 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom"
 import Home from './pages/Home.jsx'
 import Services from './pages/Services.jsx'
 import FindHelp from './pages/FindHelp.jsx'
-import Resources from './pages/Resources.jsx'
 import Profile from './pages/Profile.jsx'
 import ChatBot from './pages/ChatBot.jsx'
 import Login from './pages/Login.jsx'
 import Signup from './pages/Signup.jsx'
 import Moredetails from './pages/Moredetails.jsx'
+
+import Forum from './pages/Forum.jsx'
+
+ 
+
 
 const router = createBrowserRouter([
     {
@@ -31,8 +35,8 @@ const router = createBrowserRouter([
                 element: <FindHelp />
             },
             {
-                path: "/resources",
-                element: <Resources />
+                path: "/forum",
+                element: <Forum />
             },
             {
                 path: "/profile",
@@ -58,6 +62,10 @@ const router = createBrowserRouter([
             {
                 path: "*",
                 element: <h1>Wrong Path</h1>
+            },
+            {
+                path: "/News",
+                element: <News/>
             }
         ]
     }
