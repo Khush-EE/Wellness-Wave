@@ -21,7 +21,7 @@ router.route("/register").post(upload.single('avatarImage'), register)
 router.route("/login").post(login)
 router.route("/").get(getAllUsers)
 router.route("/:id").get(getUserById)
-router.route("/getUsersWithSameDisorder").get(getUserWithSameMentalDisorder)
+router.route("/disorder/getUsersWithSameDisorder").get(getUserWithSameMentalDisorder)
 
 // semi
 router.route("/generateAccessToken").post(renewLoggedinSession)

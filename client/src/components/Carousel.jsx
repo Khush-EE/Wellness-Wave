@@ -52,10 +52,12 @@ function Carousel() {
 
     return (
         <>
+
             <div className='w-[100vw] h-[100vh] relative overflow-hidden'>
                 <div className='w-full h-full absolute z-10 left-0 bottom-0 flex flex-col items-start justify-end gap-0 bg-black bg-opacity-50'>
                     <h1 className='text-6xl text-yellow-50 opacity-85 p-2 backdrop-blur-sm font-extrabold rounded-sm mx-16'>Welcome To <span className='text-yellow-600'>Sukoon Space!</span></h1>
                     <p className='text-2xl text-yellow-50 opacity-70 w-[70%] backdrop-blur-sm p-2 rounded-lg mb-[0%] font-bold mx-16 text-wrap'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Assumenda quis odio ab officiis minus rem accusamus cupiditate cumque praesentium quisquam! Doloribus quasi earum minus nesciunt, praesentium vero iusto nihil. Aperiam, eos eveniet! Ipsam delectus perferendis obcaecati nostrum dicta quo autem distinctio labore cum. Aperiam optio commodi nihil beatae quae inventore iure nemo sunt vel expedita.</p>
+
                     <div className='w-full ml-20 mt-8 mb-32'>
                         <Button className='mx-4 opacity-70'>Get Help</Button>
                         <Button className='mx-4 opacity-70 text-center' onClick={explore}>Explore More</Button>

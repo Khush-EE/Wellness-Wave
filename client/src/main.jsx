@@ -12,7 +12,12 @@ import Signup from './pages/Signup.jsx'
 import Moredetails from './pages/Moredetails.jsx'
 import Resources from "./pages/Resources.jsx"
 import Forum from './pages/Forum.jsx'
+
+import Resource from './pages/Resource.jsx'
+
+
 import News from './pages/News.jsx'
+
  
 
 
@@ -62,10 +67,10 @@ const router = createBrowserRouter([
                 path: "*",
                 element: <h1>Wrong Path</h1>
             },
-            {
-                path: "/News",
-                element: <News/>
-            }
+            // {
+            //     path: "/News",
+            //     element: <News/>
+            // }
         ]
     }
 ])

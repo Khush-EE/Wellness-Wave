@@ -55,14 +55,14 @@ export const renewLoggedinSession = asyncHandler(async(req, res) => {
 })
 
 export const register = asyncHandler(async(req, res) => {
-    const { username, fullName, email, password } = req.body
+    const { fullName, email, password, phoneNumber } = req.body
 
     if([username, fullName, email, password].some((field)=> !field || field.trim() === "")){
         throw new ApiError(401, "All the fields are required!!!")
     }
     
     const userExists = await User.findOne({
-        $or : [{username}, {email}]
+        $or : [{email}]
     })
 
     if(userExists){
@@ -72,6 +72,7 @@ export const register = asyncHandler(async(req, res) => {
     const user = await User.create({
         username,
         fullName,
+        phoneNumber: phoneNumber || undefined,
         email,
         password,
     })
@@ -329,7 +330,7 @@ export const getUserWithSameMentalDisorder = asyncHandler(async(req, res) => {
   console.log(usersWithSameDisorder)
 
 
-  return res.status.json(
+  return res.status(200).json(
     new ApiResponse(
       200,
       {
