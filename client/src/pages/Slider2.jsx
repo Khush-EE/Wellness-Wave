@@ -42,7 +42,7 @@ class Slider extends Component {
                         <SearchResultsLists results={results} />
                     </div>
                 </div>
-                <div className="  flex  flex-wrap  h-screen md:space-x-28 ">
+                <div className="  flex  flex-wrap  h-screen md:space-x-24 ">
                 
                     <div id=' First-dropdown-scroll' className='  mt-36 md:mt-0 mb-80 md:mb-8 rounded-2xl'>
                         <nav id="navbar-example2" className="navbar bg-body-tertiary px-3 mb-3 rounded-2xl w-96 hover: bg-orange-400">
@@ -123,11 +123,11 @@ class Slider extends Component {
                         </ul>
 
                     </div>
-                    <div id="first-box-third col">
+                    <div id="first-box-third col" className='  '>
                         
 
                         <div id='Counsellors-carousel' className=' '>
-                            <div id="carouselExampleCaptions" className="carousel slide  w-80 h-auto mb-80">
+                            <div id="carouselExampleCaptions" className="carousel slide w-96 h-auto md:mb-3 ">
                                 <div className="carousel-indicators">
                                     <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" className="active" aria-current="true" aria-label="Slide 1"></button>
                                     <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" aria-label="Slide 2"></button>
@@ -167,7 +167,7 @@ class Slider extends Component {
                                 </button>
 
                             </div>
-                            <Link to="/News" type="button" className="btn btn-outline-warning flex justify-center position-relative bottom-72">View All Counsellors</Link>
+                            <Link to="/News" type="button" className="btn btn-outline-warning flex justify-center position-relative md:mb-72 ">View All Counsellors</Link>
                         </div>
 
                     </div>

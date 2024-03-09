@@ -199,7 +199,7 @@ class SearchBar extends Component {
 
         return (
             <div className='input-wrapper w-96 scrollbar-hide'>
-                <div className=' container flex'>
+                <div className=' container flex '>
                     
                     <input
                         className=' w-80 border-black border-2 bg-white p-2 rounded-xl'

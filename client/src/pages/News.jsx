@@ -29,28 +29,28 @@ export class News extends Component {
             "title": "Ritam Dubey",
             "description": "Ritam is a certified Health Psychologist and a former research scientist who worked at ICMR with more than 4 years of experience in healthcare research and counselling practice. …",
             "url": "https://www.felicity.care/community-talk-therapists-detail/626a1d73069e10227bba193e",
-            "urlToImage": "https://felicity-uploads.s3.ap-south-1.amazonaws.com/profile/3a53aa4bb89ab5fe6dbd0c997ae9adf3-rs.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVLITOL2MEF2TPDFP%2F20240307%2Fap-south-1%2Fs3%2Faws4_request&X-Amz-Date=20240307T095707Z&X-Amz-Expires=18000&X-Amz-Signature=d6eb71e2138aef0351b7161ca2142924e0664a0d1f0fc63aae65e24d5532f291&X-Amz-SignedHeaders=host"
+            "urlToImage": "https://previews.123rf.com/images/rudall30/rudall301404/rudall30140400004/27362133-cute-cartoon-illustration-of-a-female-doctor.jpg"
         },
         {   "id":"5",
             "city":"Delhi",
             "title": "Malvika Agarwal",
             "description": "Malvika is an experienced Gottman Level 3 certified Counseling Psychologist specializing in working with couples, families, and young adults. With her belief that “Everyone is capable of and deserves compassion”, she is dedicated to fostering a safe environment and working with each individual to improve their quality of life…",
             "url": "https://www.felicity.care/community-talk-therapists-detail/63a3fc7336b41973f96efd0c",
-            "urlToImage": "https://felicity-uploads.s3.ap-south-1.amazonaws.com/profile/228ea25d85fdd0a4ad2819b3116ae2e3-rs.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVLITOL2MEF2TPDFP%2F20240307%2Fap-south-1%2Fs3%2Faws4_request&X-Amz-Date=20240307T095730Z&X-Amz-Expires=18000&X-Amz-Signature=9d87ada3f9d830bb09f657cc9feed9aa944fcc755d6bba922b7c51bf90909f37&X-Amz-SignedHeaders=host"
+            "urlToImage": "https://as2.ftcdn.net/v2/jpg/06/14/96/05/1000_F_614960515_mQsF7nS1r3qZ9eCHzqJ5cyCxmjsfJOCQ.webp"
         },
         {   "id":"6",
             "city":"Delhi",
             "title": "Dr. V S Ananthakrishnan",
             "description": "Dr. V S Ananthakrishnan is an eminent practicing psychiatrist with 5+ years of experience. He is a consultant psychiatrist at the Peroor Super Speciality Hospital & specializes in de-addiction, sexology, sleep disorders, depression, anxiety, OCD, and marital problems.…",
             "url": "https://www.felicity.care/community-talk-therapists-detail/607fcf80a14fe9519e363e4c",
-            "urlToImage": "https://felicity-uploads.s3.ap-south-1.amazonaws.com/profile/f5ecbce4ce2e1f6ad709d3ac7b9567ae-rs.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVLITOL2MEF2TPDFP%2F20240307%2Fap-south-1%2Fs3%2Faws4_request&X-Amz-Date=20240307T095751Z&X-Amz-Expires=18000&X-Amz-Signature=616c57258f56b51dc5f2eb18dac2fd6bef73daa725227af5ddeae1e78710e0bd&X-Amz-SignedHeaders=host"
+            "urlToImage": "https://toppng.com/uploads/preview/animated-doctor-animated-pictures-of-a-doctor-11562922665japjgbanai.png"
         },
         {   "id":"7",
             "city":"Delhi",
             "title": "Ujwal Sangawar",
             "description": "Ujwal has more than a decade of experience in the field of mental health and counseling. He has a humanitarian approach towards handling psycho-social issues. He has worked in rehabilitation and academic settings. …",
             "url": "https://www.felicity.care/community-talk-therapists-detail/623c193acaf201116c0a345b",
-            "urlToImage": "https://felicity-uploads.s3.ap-south-1.amazonaws.com/profile/3cb481b2616878abe606a7d22c1ed5d0-rs.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVLITOL2MEF2TPDFP%2F20240307%2Fap-south-1%2Fs3%2Faws4_request&X-Amz-Date=20240307T095807Z&X-Amz-Expires=18000&X-Amz-Signature=b7b05d4e37e84245561de9beb5fe9577635dac235c48166c946fd27633d67c60&X-Amz-SignedHeaders=host"
+            "urlToImage": "https://img.freepik.com/free-vector/hand-drawn-doctor-cartoon-illustration_23-2150680327.jpg?w=740&t=st=1709959304~exp=1709959904~hmac=f3bb6733b2924cf6cf93346241fbd68000213f85916194d51e7bb1a360d60b41"
         },
         {   "id":"8",
             "city":"Delhi",
@@ -184,13 +184,13 @@ export class News extends Component {
     render() {
         return (
           <div>
-            <div className="container my-3 d-none">
+            <div className="container my-3">
               <h2>Top HeadLines</h2>
               
               <div className="row">
                 {this.state.articles.map((element) => {
                     return <div className="col-md-3" key={element.url}>
-                    <NewsItems  title={element.title.slice(0,40)} description={element.description.slice(0,88)} imageurl={element.urlToImage} newsurl={element.url} />
+                    <NewsItems  title={element.title.slice(0,20)} description={element.description.slice(0,80)} imageurl={element.urlToImage} newsurl={element.url} />
                      </div>
                 })}
                 

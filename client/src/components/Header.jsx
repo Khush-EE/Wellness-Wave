@@ -21,7 +21,7 @@ function Header() {
         {
             path: '/resources',
             name: 'Resources'
-        }
+        },
     ]
 
   return (
