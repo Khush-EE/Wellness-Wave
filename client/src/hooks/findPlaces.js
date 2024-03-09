@@ -7,7 +7,7 @@ const usePlacesFetch = (postalCode=700091) => {
     useEffect(() => {
         ; (async () => {
             try {
-                const location = await axios.get(`https://maps.googleapis.com/maps/api/geocode/json?address=${postalCode}&key=AIzaSyCpWSpiBip2Tz-fb9_LbSDiJlRKsuGtC1o`);
+                const location = await axios.get(`https://maps.googleapis.com/maps/api/geocode/json?address=${postalCode}&key=${import.meta.env.VITE_GOOGLE_API_KEY}`);
                 const lat = location.data.results[0].geometry.location.lat;
                 const lng = location.data.results[0].geometry.location.lng;
 
@@ -28,9 +28,10 @@ const usePlacesFetch = (postalCode=700091) => {
 
                 },
                 {
-                    headers: {"X-Goog-Api-Key": 'AIzaSyCpWSpiBip2Tz-fb9_LbSDiJlRKsuGtC1o', "X-Goog-FieldMask": 'places.displayName,places.nationalPhoneNumber,places.formattedAddress,places.rating,places.googleMapsUri,places.regularOpeningHours,places.reviews,places.photos,places.id'}
+                    headers: {"X-Goog-Api-Key": `${import.meta.env.VITE_GOOGLE_API_KEY}`, "X-Goog-FieldMask": 'places.displayName,places.nationalPhoneNumber,places.formattedAddress,places.rating,places.googleMapsUri,places.regularOpeningHours,places.reviews,places.photos,places.id'}
                 })
                 setPlaces(response.data.places);
+                console.log(response.data.places)
             } catch (e) {
                 console.log(e);
             } finally {

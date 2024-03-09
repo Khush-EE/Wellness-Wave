@@ -27,7 +27,7 @@ function ChatBot() {
         setValue("query", "")
         try {
             const openai = new OpenAI({
-                apiKey: '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',
+                apiKey: import.meta.env.VITE_OPENAI_API_KEY,
                 dangerouslyAllowBrowser: true
             })
             setChats((prev) => [{ role: 'user', content: data.query }, ...prev])
