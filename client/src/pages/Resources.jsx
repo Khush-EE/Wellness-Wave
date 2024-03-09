@@ -1,5 +1,4 @@
 import React from 'react'
-// import { Button } from '../components'
 
 function Resources() {
     return (

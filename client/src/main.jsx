@@ -10,16 +10,8 @@ import ChatBot from './pages/ChatBot.jsx'
 import Login from './pages/Login.jsx'
 import Signup from './pages/Signup.jsx'
 import Moredetails from './pages/Moredetails.jsx'
-
+import Resources from "./pages/Resources.jsx"
 import Forum from './pages/Forum.jsx'
-
-import Resource from './pages/Resource.jsx'
-
-
-import News from './pages/News.jsx'
-
- 
-
 
 const router = createBrowserRouter([
     {
@@ -29,10 +21,6 @@ const router = createBrowserRouter([
             {
                 path: "/",
                 element: <Home />
-            },
-            {
-                path: "/resource",
-                element: <Resource />
             },
             {
                 path: "/findhelp",
@@ -64,13 +52,13 @@ const router = createBrowserRouter([
 
             },
             {
+                path: '/resources',
+                element: <Resources />
+            },
+            {
                 path: "*",
                 element: <h1>Wrong Path</h1>
-            },
-            // {
-            //     path: "/News",
-            //     element: <News/>
-            // }
+            }
         ]
     }
 ])

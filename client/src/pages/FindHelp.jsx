@@ -1,5 +1,4 @@
 import React, { useEffect } from 'react';
-import Slider from './Slider2';
 import { usePlacesFetch } from '../hooks/findPlaces.js'
 function App() {
 
@@ -7,7 +6,7 @@ function App() {
   console.log(loader, places);
 
   return (
-      <Slider/>
+      <h1>To be done by Asif</h1>
   );
 }
 

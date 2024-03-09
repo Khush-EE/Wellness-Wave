@@ -5,8 +5,6 @@ import Logo from '../assets/logo.png'
 
 function Signup() {
     const [showPass, setShowPass] = useState(false);
-    // const showPass = useRef(false);
-    // const pass = useRef(null);
     const { register, handleSubmit } = useForm();
 
     const submit = async (data) => {
