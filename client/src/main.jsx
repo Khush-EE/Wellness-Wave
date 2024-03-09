@@ -4,11 +4,11 @@ import App from './App.jsx'
 import './index.css'
 import { createBrowserRouter, RouterProvider } from "react-router-dom"
 import Home from './pages/Home.jsx'
-import Services from './pages/Services.jsx'
 import FindHelp from './pages/FindHelp.jsx'
 import Profile from './pages/Profile.jsx'
 
 import Forum from './pages/Forum.jsx'
+import Resource from './pages/Resource.jsx'
 
  
 
@@ -23,8 +23,8 @@ const router = createBrowserRouter([
                 element: <Home />
             },
             {
-                path: "/services",
-                element: <Services />
+                path: "/resource",
+                element: <Resource />
             },
             {
                 path: "/findhelp",
@@ -42,10 +42,10 @@ const router = createBrowserRouter([
                 path: "*",
                 element: <h1>Wrong Path</h1>
             },
-            {
-                path: "/News",
-                element: <News/>
-            }
+            // {
+            //     path: "/News",
+            //     element: <News/>
+            // }
         ]
     }
 ])

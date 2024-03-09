@@ -4,32 +4,27 @@ import mongoose from "mongoose";
 const blogSchema = new mongoose.Schema({
     title:{
         type:String,
-        required:true,
         trim:true,
         index:true,
     },
     description:{
         type:String,
-        required:true,
         trim:true,
     },
     owner:{
         type:mongoose.Types.ObjectId,
         ref: "User",
         required: true,
-    }
-    ,
-    thumbnail:{
-        type:String,
-        required:true,
-    }
-    ,
+    },
+    isComment:{
+        type:Boolean,
+        default:false,
+    },
     images:[{
         type:String,
     }],
     tags:[{
-        type:mongoose.Types.ObjectId,
-        ref:"Tag"
+        type:String,
     }],
     noOfLikes:{
         type:Number,
