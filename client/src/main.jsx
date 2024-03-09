@@ -6,9 +6,17 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom"
 import Home from './pages/Home.jsx'
 import FindHelp from './pages/FindHelp.jsx'
 import Profile from './pages/Profile.jsx'
+import ChatBot from './pages/ChatBot.jsx'
+import Login from './pages/Login.jsx'
+import Signup from './pages/Signup.jsx'
+import Moredetails from './pages/Moredetails.jsx'
 
 import Forum from './pages/Forum.jsx'
+
 import Resource from './pages/Resource.jsx'
+
+
+import News from './pages/News.jsx'
 
  
 
@@ -37,6 +45,23 @@ const router = createBrowserRouter([
             {
                 path: "/profile",
                 element: <Profile />
+            },
+            {
+                path: "/bot",
+                element: <ChatBot />
+            },
+            {
+                path: '/login',
+                element: <Login />
+            },
+            {
+                path: '/signup',
+                element: <Signup />
+            },
+            {
+                path: '/moredetails',
+                element : <Moredetails />
+
             },
             {
                 path: "*",
