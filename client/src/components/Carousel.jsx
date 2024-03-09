@@ -7,28 +7,6 @@ import { Button } from "./index"
 
 function Carousel() {
 
-    // const [headlines, setHeadlines] = useState([]);
-    // const [articles, setArticles] = useState([]);
-    // const [loading, setLoading] = useState(true);
-
-    // useEffect(() => {
-    //     setLoading(true)
-    //         ; (async () => {
-    //             try {
-    //                 const headResponse = await axios.get("https://newsapi.org/v2/top-headlines?q=health&apiKey=0683efddcc9b4d739020691b27b2a593");
-    //                 setHeadlines(headResponse.data.articles);
-    //                 const articleResponse = await axios.get("https://newsapi.org/v2/everything?q=health&apiKey=0683efddcc9b4d739020691b27b2a593&pageSize=6")
-    //                 setArticles(articleResponse.data.articles);
-    //                 // console.log(headResponse.data.articles);
-    //                 // console.log(articleResponse.data.articles);
-    //             } catch (e) {
-    //                 console.log(e);
-    //             } finally {
-    //                 setLoading(false);
-    //             }
-    //         })()
-    // }, [])
-
     useEffect(() => {
         const slider = document.getElementById('slider');
         let counter = 0;
@@ -45,7 +23,6 @@ function Carousel() {
 
         return () => clearInterval();
     }, [])
-//AIzaSyCpWSpiBip2Tz-fb9_LbSDiJlRKsuGtC1o
     const explore = () => {
         window.scrollTo({top: 631, behavior: 'smooth'});
     }

@@ -15,7 +15,7 @@ function Header() {
             name: 'Find Help'
         },
         {
-            path: '/resource',
+            path: '/resources',
             name: 'Resource'
         },
         {
