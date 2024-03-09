@@ -1,0 +1,92 @@
+[
+    {
+        "quiz_title": "Anxiety Disorder Quiz",
+        "questions": [
+          {
+            "question": "How often do you feel excessive worry or apprehension about various aspects of your life, such as work, school, relationships, or health?",
+            "options": ["Rarely or never", "Occasionally", "Frequently", "Almost constantly"]
+          },
+          {
+            "question": "Do you often experience sudden and intense feelings of fear or panic, accompanied by physical symptoms such as heart palpitations, sweating, trembling, or shortness of breath?",
+            "options": ["No, never", "Rarely", "Sometimes", "Yes, frequently"]
+          },
+          {
+            "question": "Are you frequently troubled by intrusive thoughts or persistent worries that you can't seem to control?",
+            "options": ["No, not at all", "Occasionally", "Often", "Constantly"]
+          },
+          {
+            "question": "How often do you avoid certain situations or places because they trigger feelings of anxiety or panic?",
+            "options": ["Never", "Rarely", "Sometimes", "Frequently"]
+          },
+          {
+            "question": "Do you experience physical symptoms such as muscle tension, headaches, stomachaches, or fatigue, which are not explained by any medical condition?",
+            "options": ["Rarely or never", "Occasionally", "Frequently", "Almost constantly"]
+          },
+          {
+            "question": "How much does anxiety interfere with your daily activities, work, or relationships?",
+            "options": ["Not at all", "A little", "Moderately", "Significantly"]
+          },
+          {
+            "question": "Have you noticed changes in your sleep patterns, such as difficulty falling asleep, staying asleep, or experiencing restless sleep due to anxious thoughts?",
+            "options": ["No, not at all", "Occasionally", "Often", "Yes, frequently"]
+          },
+          {
+            "question": "Are you often irritable or on edge, even in situations where others don't seem bothered?",
+            "options": ["No, rarely", "Occasionally", "Sometimes", "Yes, frequently"]
+          },
+          {
+            "question": "Have you experienced sudden and overwhelming feelings of panic or fear without any apparent trigger?",
+            "options": ["No, never", "Rarely", "Sometimes", "Yes, frequently"]
+          },
+          {
+            "question": "Overall, how much do these feelings of anxiety or worry affect your quality of life?",
+            "options": ["Not at all", "A little", "Moderately", "Significantly"]
+          }
+          ]
+      },
+      {
+        "quiz_title": "Personality Disorder Quiz",
+        "questions": [
+          {
+            "question": "Do you often experience intense and unstable relationships, characterized by extreme idealization and devaluation of others?",
+            "options": ["No, not at all", "Occasionally", "Often", "Yes, frequently"]
+          },
+          {
+            "question": "Are you often uncertain about your own self-image, identity, or goals in life?",
+            "options": ["No, rarely", "Sometimes", "Frequently", "Almost constantly"]
+          },
+          {
+            "question": "Do you frequently engage in impulsive behaviors such as reckless driving, substance abuse, binge eating, or risky sexual behavior?",
+            "options": ["Rarely or never", "Occasionally", "Frequently", "Almost constantly"]
+          },
+          {
+            "question": "Are you often emotionally unstable, experiencing rapid and intense mood swings that are difficult to control?",
+            "options": ["No, rarely", "Sometimes", "Frequently", "Almost constantly"]
+          },
+          {
+            "question": "Do you have difficulty trusting others, and do you often feel paranoid or suspicious of their motives?",
+            "options": ["Rarely or never", "Occasionally", "Frequently", "Almost constantly"]
+          },
+          {
+            "question": "Are you often preoccupied with fantasies of unlimited success, power, brilliance, or beauty?",
+            "options": ["No, rarely", "Sometimes", "Frequently", "Almost constantly"]
+          },
+          {
+            "question": "Do you have a pervasive pattern of disregarding and violating the rights of others, such as lying, stealing, or manipulating for personal gain?",
+            "options": ["No, never", "Rarely", "Sometimes", "Yes, frequently"]
+          },
+          {
+            "question": "Are you excessively sensitive to criticism or rejection, often feeling deeply wounded or angry in response?",
+            "options": ["No, rarely", "Sometimes", "Frequently", "Almost constantly"]
+          },
+          {
+            "question": "Do you frequently feel empty or bored, and do you have difficulty forming stable and satisfying relationships?",
+            "options": ["No, rarely", "Sometimes", "Frequently", "Almost constantly"]
+          },
+          {
+            "question": "Overall, how much do these personality traits and behaviors interfere with your daily functioning and relationships?",
+            "options": ["Not at all", "A little", "Moderately", "Significantly"]
+          }
+        ]
+      }
+]
