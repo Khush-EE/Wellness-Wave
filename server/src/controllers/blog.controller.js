@@ -7,7 +7,6 @@ import { asyncHandler } from "../utils/asyncHandler.js";
 import { ApiResponse } from "../utils/ApiResponse.js"
 import { ApiError } from "../utils/ApiError.js"
 import { uploadOnCloud } from "../utils/cloudinary.js"
-import mongoose from "mongoose";
 
 
 export const createBlog = asyncHandler(async(req, res) => {
