@@ -13,7 +13,7 @@ import Signup from './pages/Signup.jsx'
 import Moredetails from './pages/Moredetails.jsx'
 
 import Forum from './pages/Forum.jsx'
-
+import News from './pages/News.jsx'
  
 
 
