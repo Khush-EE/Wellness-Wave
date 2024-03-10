@@ -12,6 +12,7 @@ import Signup from './pages/Signup.jsx'
 import Moredetails from './pages/Moredetails.jsx'
 import Resources from "./pages/Resources.jsx"
 import Forum from './pages/Forum.jsx'
+import Blog from './pages/Blog.jsx'
 
 const router = createBrowserRouter([
     {
@@ -54,6 +55,10 @@ const router = createBrowserRouter([
             {
                 path: '/resources',
                 element: <Resources />
+            },
+            {
+              path: '/blog/:id',
+              element: <Blog />
             },
             {
                 path: "*",

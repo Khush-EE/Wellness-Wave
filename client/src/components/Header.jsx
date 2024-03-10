@@ -34,7 +34,7 @@ function Header() {
                 }} className='w-full h-full cursor-pointer rounded-full'/>
         </div>
         <div className='w-[50%] text-yellow-600 font-semibold'>
-          <ul className={`absolute ${showOptions ? "flex bg-black": "hidden" }  py-2 md:p-0 top-[60px] left-3 md:static md:flex flex-col md:flex-row items-center justify-start gap-6`}>
+          <ul className={`absolute ${showOptions ? "flex bg-black": "hidden bg-transparent" }  py-2 md:p-0 top-[60px] left-3 md:static md:bg-transparent md:flex flex-col md:flex-row items-center justify-start gap-6`}>
               {
                   routes.map((route, index) => <NavLink key={index} to={route.path} className={({isActive}) => ('hover:bg-yellow-600 rounded-full hover:text-black p-2 px-4 hover:shadow-xl transition-colors shadow-slate-400 ' + (isActive?"bg-yellow-600 bg-opacity-80 rounded-full text-black":""))}>
                       {route.name}
