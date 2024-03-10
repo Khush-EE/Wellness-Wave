@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { usePlacesFetch } from '../hooks/findPlaces.js';
 import { FaSearch } from 'react-icons/fa';
 import Spinner from '../components/Spinner.jsx';
-
+import bg2 from '../assets/bg2.jpg';
 function App() {
   const [search, setSearch] = useState();
   const [loader, places] = usePlacesFetch(search);
@@ -23,7 +23,7 @@ function App() {
     <>
       <div className='md:mt-0 md:mb-28 md:ml-0 md:mr-0'>
       
-      <div className='w-full h-full flex flex-col items-center justify-start gap-6 mt-[60px]'>
+      <div className='w-full h-full flex flex-col items-center justify-start gap-6 mt-[60px]' style={{ backgroundImage: "url('../assets/bg2.jpg')"}}>
         <div className='w-full h-[15vh] flex items-center justify-center absolute z-10'>
          <div className=' rounded-xl bg-yellow-600 flex'>
          <input
@@ -93,7 +93,13 @@ function App() {
         </div>
         </div>
 
-        <div id='filter-box' className='border-2 w-52 h-80 flex flex-col rounded-xl'>
+        <div id='filter-box' className=' border-4 w-52 h-80 flex justify-center items-center flex-col rounded-xl'>
+
+          <ul className=''>
+            <li className=' p-3 bg-slate-50 hover:bg-slate-200 rounded-lg my-4'> Filter by Ratings <input type="checkbox" /> </li>
+            <li className=' p-3 bg-slate-50 hover:bg-slate-200 rounded-lg my-4'> Filter by Distance <input type="checkbox" /></li>
+            <li className=' p-3 bg-slate-50 hover:bg-slate-200 rounded-lg my-4'> Filter by City <input type="checkbox" /></li>
+          </ul>
 
         </div>
 
