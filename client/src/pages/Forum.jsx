@@ -26,7 +26,7 @@ function Forum() {
     })()
   }, [loggedInUser, tags, setTags])
 
-
+ 
   return (
     !loading && <div className='mt-[60px]'>
       <div className='w-full h-[300px] flex justify-center items-center'>
