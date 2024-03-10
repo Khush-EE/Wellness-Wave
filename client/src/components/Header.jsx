@@ -6,26 +6,7 @@ import { useSelector } from 'react-redux'
 
 function Header() {
 
-  const loggedInUser = useSelector(state => state.user?.currentUser)
-
-    const routes = [
-        {
-            path: '/',
-            name: 'Home'
-        },
-        {
-            path: '/findhelp',
-            name: 'Find Help'
-        },
-        {
-            path: '/resources',
-            name: 'Resource'
-        },
-        {
-            path: '/resources',
-            name: 'Resources'
-        }
-    ]
+  const user = useSelector(state => state.user?.currentUser)
 
   const routes = [
     {
@@ -74,10 +55,10 @@ function Header() {
           <li className='flex'>
 
             {
-              loggedInUser ? 
+              user ? 
 
-              <Link to={`/profile/${loggedInUser._id}`} >
-                <img src={loggedInUser?.avatarImage} alt='nope' className='w-[50px] h-[50px] object-cover rounded-full'/>
+              <Link to={`/profile/${user._id}`} >
+                <img src={user?.avatarImage} alt='nope' className='w-[50px] h-[50px] object-cover rounded-full'/>
               </Link>
               : 
             <div>
@@ -88,7 +69,7 @@ function Header() {
 
           </li>
         </ul>
-      </div>
+      {/* </div> */}
       <ul className='flex items-center w-[60%] md:w-[40%] justify-end gap-4 text-yellow-600'>
         {/* <li><i className='fa-solid fa-sun text-xl'></i></li> */}
         {user && <li><i className='fa-solid fa-bell text-xl'></i></li>}

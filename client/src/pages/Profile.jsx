@@ -10,26 +10,15 @@ function Profile() {
   const [user, setUser] = useState({})
 
   useEffect(() => {
-<<<<<<< HEAD
-    ; (async () => {
-=======
     ;(async() => {
->>>>>>> 6c600eff6cb98ca9ecf25fb418e0d2e41a7252f2
       try {
         const user = await userById(id)
         setUser(user)
       } catch (error) {
-<<<<<<< HEAD
-        console.log("Error while fetching user:- ", error)
-      }
-    })()
-  }, [id])
-=======
         console.error("Error while fetching user:- ", error)
       }
     })()
   },[id])
->>>>>>> 6c600eff6cb98ca9ecf25fb418e0d2e41a7252f2
 
   return (
     <div className='flex justify-center items-center mt-[60px] px-5 py-2'>
