@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { getAllBlogs, getBlogById, getBlogUsingTags, likeBlog } from '../ApiRequests/blog'
 import { useDispatch, useSelector } from 'react-redux'
 import { loginSuccess } from '../redux/user/userSlice'
+import { NavLink } from 'react-router-dom'
 
 function Forum() {
 
@@ -56,10 +57,11 @@ function Forum() {
         <div className='md:w-[55%] md:order-3 order-2'>
           <div className='p-2 bg-slate-200 flex justify-between'>
             <div>
-              <span className='text-green-500'>Open</span> <span className='text-red-500'>Closed</span>
+              Queries And User Experiences
+              {/* <span className='text-green-500'>Open</span> <span className='text-red-500'>Closed</span> */}
             </div>
             <div>
-              sort
+              {/* sort */}
             </div>
           </div>
           <div className='flex flex-col gap-2 p-1 relative border-2'>
@@ -96,7 +98,7 @@ function Forum() {
         </div>
         <div className='md:w-[25%] md:order-2 order-2'>
           <div>
-            <button className='bg-yellow-500 rounded-full py-2 px-4'>Ask Question</button>
+            <NavLink to={'/write'} className='bg-yellow-500 rounded-full py-2 px-4'>Ask Question</NavLink>
           </div>
           <div className='mt-4'>
             <p className='bg-slate-200 p-2'>Most Helpfull</p>
