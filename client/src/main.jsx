@@ -12,6 +12,7 @@ import Signup from './pages/Signup.jsx'
 import Moredetails from './pages/Moredetails.jsx'
 import Resources from "./pages/Resources.jsx"
 import Forum from './pages/Forum.jsx'
+import Blog from './pages/Blog.jsx'
 import AuthLayout from './components/AuthLayout.jsx'
 import WriteForum from './pages/WriteForum.jsx'
 
@@ -74,6 +75,14 @@ const router = createBrowserRouter([
                 element: <AuthLayout>
                     <WriteForum />
                 </AuthLayout>
+            },
+            {
+              path: '/blog/:id',
+              element: <Blog />
+            },
+            {
+              path: '/blog/:id',
+              element: <Blog />
             },
             {
                 path: "*",
