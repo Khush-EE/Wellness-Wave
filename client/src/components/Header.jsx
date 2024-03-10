@@ -19,8 +19,8 @@ function Header() {
             name: 'Resource'
         },
         {
-            path: '/forum',
-            name: 'Forum'
+            path: '/resources',
+            name: 'Resources'
         }
     ]
 
