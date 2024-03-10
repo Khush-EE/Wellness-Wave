@@ -18,9 +18,9 @@ function Home() {
         setLoading(true)
             ; (async () => {
                 try {
-                    const headResponse = await axios.get("https://newsapi.org/v2/top-headlines?q=health&apiKey=0683efddcc9b4d739020691b27b2a593");
+                    const headResponse = await axios.get(`https://newsapi.org/v2/top-headlines?q=health&apiKey=${import.meta.env.VITE_NEWS_API_KEY}`);
                     setHeadlines(headResponse.data.articles);
-                    const articleResponse = await axios.get(`https://newsapi.org/v2/everything?q=health&apiKey=0683efddcc9b4d739020691b27b2a593&pageSize=6&page=${page}`)
+                    const articleResponse = await axios.get(`https://newsapi.org/v2/everything?q=health&apiKey=${import.meta.env.VITE_NEWS_API_KEY}&pageSize=6&page=${page}`)
                     setArticles(articleResponse.data.articles);
                     console.log(headResponse.data.articles);
                     // console.log(articleResponse.data.articles);

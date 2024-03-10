@@ -4,17 +4,15 @@ import App from './App.jsx'
 import './index.css'
 import { createBrowserRouter, RouterProvider } from "react-router-dom"
 import Home from './pages/Home.jsx'
-import Services from './pages/Services.jsx'
 import FindHelp from './pages/FindHelp.jsx'
 import Profile from './pages/Profile.jsx'
 import ChatBot from './pages/ChatBot.jsx'
 import Login from './pages/Login.jsx'
 import Signup from './pages/Signup.jsx'
 import Moredetails from './pages/Moredetails.jsx'
-
+import Resources from "./pages/Resources.jsx"
 import Forum from './pages/Forum.jsx'
- 
-
+import Blog from './pages/Blog.jsx'
 
 const router = createBrowserRouter([
     {
@@ -26,10 +24,6 @@ const router = createBrowserRouter([
                 element: <Home />
             },
             {
-                path: "/services",
-                element: <Services />
-            },
-            {
                 path: "/findhelp",
                 element: <FindHelp />
             },
@@ -38,7 +32,7 @@ const router = createBrowserRouter([
                 element: <Forum />
             },
             {
-                path: "/profile",
+                path: "/profile/:id",
                 element: <Profile />
             },
             {
@@ -57,6 +51,14 @@ const router = createBrowserRouter([
                 path: '/moredetails',
                 element : <Moredetails />
 
+            },
+            {
+                path: '/resources',
+                element: <Resources />
+            },
+            {
+              path: '/blog/:id',
+              element: <Blog />
             },
             {
                 path: "*",

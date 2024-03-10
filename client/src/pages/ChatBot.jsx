@@ -12,13 +12,7 @@ function ChatBot() {
             query: ""
         }
     });
-
-    // const openAi = new OpenAIApi(configuration);
-    //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
-    //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
-
-    //8c6889813fca47d7913fc3fee0d3f675
-    //f802647c64cb4449acb270d7f19eac36
+    
     const [chats, setChats] = useState([]);
     const [loading, setLoading] = useState(false);
 
@@ -27,7 +21,7 @@ function ChatBot() {
         setValue("query", "")
         try {
             const openai = new OpenAI({
-                apiKey: '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',
+                apiKey: import.meta.env.VITE_OPENAI_API_KEY,
                 dangerouslyAllowBrowser: true
             })
             setChats((prev) => [{ role: 'user', content: data.query }, ...prev])
