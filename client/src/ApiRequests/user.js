@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const url = "http://localhost:8000/api/v1/user";
+const url = "/api/v1/user";
 
 export const userById = async (id) => {
   try {

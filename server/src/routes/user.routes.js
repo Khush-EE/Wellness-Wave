@@ -11,6 +11,7 @@ import {
     updateMentalDisorder,
     getUserWithSameMentalDisorder,
     updateUserProfileImage,
+    getCurrentUser
 } from "../controllers/user.controller.js"
 import { verifyJWT } from '../middleware/auth.middleware.js';
 
@@ -20,7 +21,6 @@ const router = Router()
 router.route("/register").post(register)
 router.route("/login").post(login)
 router.route("/").get(getAllUsers)
-router.route("/:id").get(getUserById)
 router.route("/disorder/getUsersWithSameDisorder").get(getUserWithSameMentalDisorder)
 
 // semi
@@ -30,5 +30,7 @@ router.route("/logout").post(verifyJWT, logout)
 router.route("/:id/updateUserProfileImage").patch(upload.single('avatarImage'),verifyJWT, updateUserProfileImage)
 router.route("/:id/updateUserProfile").post(verifyJWT, updateUserProfile)
 router.route("/:id/updateDisorder").patch(verifyJWT, updateMentalDisorder)
+router.route("/getCurrentUser").get(verifyJWT, getCurrentUser);
 
+router.route("/:id").get(getUserById)
 export default router;

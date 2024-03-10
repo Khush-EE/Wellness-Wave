@@ -12,6 +12,8 @@ import Signup from './pages/Signup.jsx'
 import Moredetails from './pages/Moredetails.jsx'
 import Resources from "./pages/Resources.jsx"
 import Forum from './pages/Forum.jsx'
+import AuthLayout from './components/AuthLayout.jsx'
+import WriteForum from './pages/WriteForum.jsx'
 
 const router = createBrowserRouter([
     {
@@ -20,23 +22,33 @@ const router = createBrowserRouter([
         children: [
             {
                 path: "/",
-                element: <Home />
+                element: <AuthLayout>
+                    <Home />
+                </AuthLayout>
             },
             {
                 path: "/findhelp",
-                element: <FindHelp />
+                element: <AuthLayout>
+                    <FindHelp />
+                </AuthLayout>
             },
             {
                 path: "/forum",
-                element: <Forum />
+                element: <AuthLayout>
+                    <Forum />
+                </AuthLayout>
             },
             {
                 path: "/profile/:id",
-                element: <Profile />
+                element: <AuthLayout>
+                    <Profile />
+                </AuthLayout>
             },
             {
                 path: "/bot",
-                element: <ChatBot />
+                element: <AuthLayout>
+                    <ChatBot />
+                </AuthLayout>
             },
             {
                 path: '/login',
@@ -48,12 +60,20 @@ const router = createBrowserRouter([
             },
             {
                 path: '/moredetails',
-                element : <Moredetails />
+                element: <Moredetails />
 
             },
             {
                 path: '/resources',
-                element: <Resources />
+                element: <AuthLayout>
+                    <Resources />
+                </AuthLayout>
+            },
+            {
+                path: '/write',
+                element: <AuthLayout>
+                    <WriteForum />
+                </AuthLayout>
             },
             {
                 path: "*",

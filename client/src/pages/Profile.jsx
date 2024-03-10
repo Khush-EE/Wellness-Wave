@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { useSelector } from 'react-redux'
+// import { useSelector } from 'react-redux'
 import { useParams } from 'react-router-dom'
 import { userById } from '../ApiRequests/user.js'
 
@@ -9,14 +9,15 @@ function Profile() {
 
   const [user, setUser] = useState({})
 
-  useEffect(async() => {
-    // fetch user by id
-    try {
-      const user = await userById(id)
-      setUser(user)
-    } catch (error) {
-      console.log("Error while fetching user:- ", error)
-    }
+  useEffect(() => {
+    ; (async () => {
+      try {
+        const user = await userById(id)
+        setUser(user)
+      } catch (error) {
+        console.log("Error while fetching user:- ", error)
+      }
+    })()
   }, [id])
 
   return (
@@ -33,7 +34,7 @@ function Profile() {
             bwoief
           </div>
         </div>
-        
+
         {/* blogs section */}
         <div></div>
       </div>

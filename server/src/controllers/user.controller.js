@@ -114,12 +114,6 @@ export const logout = asyncHandler(async(req, res)=>{
         }
     )
 
-    const options = {
-        // httpOnly: true,
-        // sameSite: none,
-        // secure: true,
-    }
-
     return res
         .status(200)
         .clearCookie("refreshToken")
@@ -284,7 +278,7 @@ export const updateMentalDisorder = asyncHandler(async(req, res) => {
   }
 
   if(!user.mentalDisorder.includes(disorder)){
-    await user.mentalDisorder.push(disorder)
+    user.mentalDisorder.push(disorder)
     await user.save({validateBeforeSave:false})
   }
 
@@ -340,3 +334,16 @@ export const getUserWithSameMentalDisorder = asyncHandler(async(req, res) => {
     )
   )
 })
+
+export const getCurrentUser = async (req, res) => {
+    console.log(req.user)
+    const user = req.user;
+    // if(!user){
+    //     throw new ApiError(400, "User not logged in")
+    // }
+    const currentUser = await User.findById(user._id)
+
+    res.status(200).json(new ApiResponse(
+        200, currentUser, "fetch successfully"
+    ));
+}
