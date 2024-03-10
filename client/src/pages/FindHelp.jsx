@@ -3,6 +3,9 @@ import { usePlacesFetch } from '../hooks/findPlaces.js';
 import { FaSearch } from 'react-icons/fa';
 import Spinner from '../components/Spinner.jsx';
 import bg2 from '../assets/bg2.jpg';
+
+import React, { useEffect } from 'react';
+import { usePlacesFetch } from '../hooks/findPlaces.js'
 function App() {
   const [search, setSearch] = useState();
   const [loader, places] = usePlacesFetch(search);

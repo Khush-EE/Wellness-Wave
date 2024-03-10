@@ -7,28 +7,6 @@ import { Button } from "./index"
 
 function Carousel() {
 
-    // const [headlines, setHeadlines] = useState([]);
-    // const [articles, setArticles] = useState([]);
-    // const [loading, setLoading] = useState(true);
-
-    // useEffect(() => {
-    //     setLoading(true)
-    //         ; (async () => {
-    //             try {
-    //                 const headResponse = await axios.get("https://newsapi.org/v2/top-headlines?q=health&apiKey=0683efddcc9b4d739020691b27b2a593");
-    //                 setHeadlines(headResponse.data.articles);
-    //                 const articleResponse = await axios.get("https://newsapi.org/v2/everything?q=health&apiKey=0683efddcc9b4d739020691b27b2a593&pageSize=6")
-    //                 setArticles(articleResponse.data.articles);
-    //                 // console.log(headResponse.data.articles);
-    //                 // console.log(articleResponse.data.articles);
-    //             } catch (e) {
-    //                 console.log(e);
-    //             } finally {
-    //                 setLoading(false);
-    //             }
-    //         })()
-    // }, [])
-
     useEffect(() => {
         const slider = document.getElementById('slider');
         let counter = 0;
@@ -45,17 +23,18 @@ function Carousel() {
 
         return () => clearInterval();
     }, [])
-//AIzaSyCpWSpiBip2Tz-fb9_LbSDiJlRKsuGtC1o
     const explore = () => {
         window.scrollTo({top: 631, behavior: 'smooth'});
     }
 
     return (
         <>
+
             <div className='w-[100vw] h-[100vh] relative overflow-hidden'>
                 <div className='w-full h-full absolute z-10 left-0 bottom-0 flex flex-col items-start justify-end gap-0 bg-black bg-opacity-50'>
                     <h1 className='text-6xl text-yellow-50 opacity-85 p-2 backdrop-blur-sm font-extrabold rounded-sm mx-16'>Welcome To <span className='text-yellow-600'>Sukoon Space!</span></h1>
                     <p className='text-2xl text-yellow-50 opacity-70 w-[70%] backdrop-blur-sm p-2 rounded-lg mb-[0%] font-bold mx-16 text-wrap'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Assumenda quis odio ab officiis minus rem accusamus cupiditate cumque praesentium quisquam! Doloribus quasi earum minus nesciunt, praesentium vero iusto nihil. Aperiam, eos eveniet! Ipsam delectus perferendis obcaecati nostrum dicta quo autem distinctio labore cum. Aperiam optio commodi nihil beatae quae inventore iure nemo sunt vel expedita.</p>
+
                     <div className='w-full ml-20 mt-8 mb-32'>
                         <Button className='mx-4 opacity-70'>Get Help</Button>
                         <Button className='mx-4 opacity-70 text-center' onClick={explore}>Explore More</Button>

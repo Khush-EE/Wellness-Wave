@@ -7,7 +7,6 @@ import { asyncHandler } from "../utils/asyncHandler.js";
 import { ApiResponse } from "../utils/ApiResponse.js"
 import { ApiError } from "../utils/ApiError.js"
 import { uploadOnCloud } from "../utils/cloudinary.js"
-import mongoose from "mongoose";
 
 
 export const createBlog = asyncHandler(async(req, res) => {
@@ -17,44 +16,32 @@ export const createBlog = asyncHandler(async(req, res) => {
         throw new ApiError(401, "unauthorised user, you must be logged in to post blogs")
     }
 
-    const { title, description } = req.body
+    const { title, description, tags } = req.body
 
     if([title, description].some((field) => !field || field?.trim() === "")){
         throw new ApiError(400, "Both title and description are required!!!")
     }
 
-    const thumbnailLocalPath = req.files?.thumbnail && req.files.thumbnail[0]?.path;
     const imagesLocalPath = req.files?.images;
-
-    if (!thumbnailLocalPath) {
-      throw new ApiError(400, "thumbnail not provided");
-    }
-
-    const thumbnail = await uploadOnCloud(thumbnailLocalPath);
-
-    if (!thumbnail) {
-      throw new ApiError(500, "Unable to upload thumbnail");
-    }
 
     let images = [];
 
-    for (const image of imagesLocalPath) {
-      const img = await uploadOnCloud(image?.path);
-
-      if (!img) {
-        throw new ApiError(500, "Error while uploading blog image to server");
+    if(imagesLocalPath){
+      for (const image of imagesLocalPath) {
+        const img = await uploadOnCloud(image?.path);
+  
+        if (!img) {
+          throw new ApiError(500, "Error while uploading blog image to server");
+        }
+  
+        images.push(img?.url);
       }
-
-      images.push(img?.url);
-      console.log("Push Images :- ", images);
     }
-
-    console.log("Images :- ", images);
 
     const blog = await Blog.create({
         title,
         description,
-        thumbnail : thumbnail.url,
+        tags,
         images: images,
         owner : user._id
     })
@@ -63,17 +50,17 @@ export const createBlog = asyncHandler(async(req, res) => {
         throw new ApiError(500, "Error while creating blog!!!")
     }
 
-    const userBlogUpdate = await User.findById(user._id)
-
     user.blogs.push(blog._id)
     await user.save({validateBeforeSave:false})
 
+    const userBlogUpdate = await User.findById(user._id).select("-password -refreshToken")
+    
     return res
         .status(200)
         .json(new ApiResponse(
             200,
             {
-                blog, user
+                blog, user:userBlogUpdate
             },
             "Blog created successfully"
         ))
@@ -81,7 +68,7 @@ export const createBlog = asyncHandler(async(req, res) => {
 
 export const getAllBlogs = asyncHandler(async(req, res) => {
     
-    const blogs = await Blog.find()
+    const blogs = await Blog.find({isComment: false}).sort({createdAt: -1})
 
     if(!blogs){
         throw new ApiError(500, "Error while fetching all the blogs")
@@ -120,73 +107,13 @@ export const deleteBlog = asyncHandler(async(req, res) => {
         throw new ApiError(401, "You are unauthorised to delete blogs of other users")
     }
 
-    const userDeleteBlog = await User.findById(user._id)
+    const comments = blog.comment
 
-    if(!userDeleteBlog){
-        throw new ApiError(401, "Unauthorized to delete this blog")
+    const deletedComments = await Blog.deleteMany({ _id : comments})
+
+    if(!deletedComments){
+        throw new ApiError(500, "Not able to delete blog's comment")
     }
-
-    // const blogObjectId = new mongoose.Types.ObjectId(`${blogId}`)
-
-    // const blogViews = await View.aggregate([
-    //     {
-    //         $match:{
-    //             blog : blogObjectId,
-    //         }
-    //     },
-    //     {
-    //         $project:{
-    //             _id:1,
-    //         }
-    //     }
-    // ])
-
-    // let blogViewsList = []
-    
-    // blogViews.filter((viewsId) => {
-    //     blogViewsList.push(viewsId._id)
-    // })
-
-    // const viewsDelete = await View.deleteMany({ _id: blogViewsList})
-
-    // if(!viewsDelete){
-    //     throw new ApiError(500, "Error while deleting blog's views")
-    // }
-
-    // const blogLikes = await Like.aggregate([
-    //     {
-    //         $match:{
-    //             blog: blogObjectId,
-    //         }
-    //     },
-    //     {
-    //         $project:{
-    //             _id:1,
-    //         }
-    //     }
-    // ])
-
-    // let blogLikesList = []
-
-    // blogLikes.filter((likesId) => {
-    //     blogLikesList.push(likesId._id)
-    // })
-
-    // const likesDelete = await Like.deleteMany({ _id: blogLikesList})
-
-    // if(!likesDelete){
-    //     throw new ApiError(500, "Not able to delete blog's likes")
-    // }
-
-    // const comments = blog.comment
-
-    // const deletedComments = await Comment.deleteMany({ _id : comments})
-
-    // if(!deletedComments){
-    //     throw new ApiError(500, "Not able to delete blog's comment")
-    // }
-
-    // console.log(deletedComments)
 
     const deletedBlog = await Blog.findByIdAndDelete(blogId)
 
@@ -198,6 +125,19 @@ export const deleteBlog = asyncHandler(async(req, res) => {
     user.blogs = user.blogs.filter(blog_Id => {return String(blog_Id) !== String(blogId)})
     await user.save({validateBeforeSave:false})
 
+    const userResponse = {
+      _id: user._id,
+      username: user.username,
+      fullName: user.fullName,
+      email: user.email,
+      avatarImage: user.avatarImage,
+      blogs: user.blogs,
+      blogHistory: user.blogHistory,
+      likedBlogs: user.likedBlogs,
+      createdAt: user.createdAt,
+      updatedAt: user.updatedAt
+    }
+
     return res
         .status(200)
         .json(new ApiResponse(
@@ -206,179 +146,102 @@ export const deleteBlog = asyncHandler(async(req, res) => {
                 deleteBlog,
                 "History" :user.blogHistory,
                 "blogs" : user.blogs,
-                user
+                user:userResponse
             },
             "Blog Deleted Successfully"
         ))
 })
 
-export const updateBlog = asyncHandler(async(req, res) => {
-    const user = req.user
-    const blogId = req.params.id
-    const {title, description} = req.body
-
-    if(!user){
-        throw new ApiError(401, "Login to perform these actions")
-    }
-
-    if(!blogId){
-        throw new ApiError(400, "invalid blog id")
-    }
-
-    const blog = await Blog.findById(blogId)
-
-    if(!blog){
-        throw new ApiError(400, "Invalid Blog Id")
-    }
-
-    if(!(String(user._id) == String(blog.owner))){
-        throw new ApiError(401, "You are unauthorised to delete blogs of other users")
-    }
-
-    if([title, description].some((field) => !field || field?.trim() === "")){
-        throw new ApiError(400, "Both title and description are required!!!")
-    }
-
-
-    const updatedBlog = await Blog.findByIdAndUpdate(blogId, {
-        $set:{
-            title,
-            description,
-        }
-    }, {new : true})
-
-    if(!updatedBlog){
-        throw new ApiError(500, "Error while updating the blog")
-    }
-
-    return res
-        .status(200)
-        .json(new ApiResponse(
-            200,
-            {
-                updatedBlog
-            },
-            "Updated blog successfully"
-        ))
-})
-
 export const likeBlog = asyncHandler(async(req, res) => {
+  const user = req.user
+  const blogId = req.params.id
 
-    const user = req.user
-    // yaha checks lgana baaki h if same user baar baar like krde to
+  if(!user){
+      throw new ApiError(401, "unauthorised user, you must be logged in to like blogs")
+  }
 
-    if(!user){
-        throw new ApiError(401, "Login to like this blog")
-    }
+  if(!blogId){
+      throw new ApiError(400, "Blog id is required")
+  }
 
-    const userLikedBlogs = await User.findById(user._id)
+  const blog = await Blog.findById(blogId)
 
-    if(!userLikedBlogs){
-        throw new ApiError(404, "User not found!!!")
-    }
+  if(!blog){
+      throw new ApiError(400, "Blog id is invalid")
+  }
 
-    const blogId = req.params.id
+  const like = await Like.findOne({blog: blogId, likedBy: user._id})
 
-    if(!blogId){
-        throw new ApiError(400, "Invalid user id")
-    }
+  if(like){
+      await Like.findByIdAndDelete(like._id)
 
-    const blogObjectId = new mongoose.Types.ObjectId(`${blogId}`)
+      blog.noOfLikes -= 1
+      await blog.save({validateBeforeSave: false})
 
-    // agar koi banda pehle se isko like kiye hoga to uska views document bana hoga to usme check krte h
-    const ifAlreadyLikedBySameUser = await Like.aggregate([
-        {
-            $match:{
-                blog : blogObjectId,
-                likedBy : user._id
-            }
-        }
-    ])
+      user.likedBlogs = user.likedBlogs.filter(likedBlogId => {
+          return String(likedBlogId) !== String(blogId)
+      });
+      await user.save({validateBeforeSave: false})
 
-    if(ifAlreadyLikedBySameUser.length > 0){
-        // yaha delete krdo like 
-        // abhi nhi banaye h...
+      const userResponse = {
+        _id: user._id,
+        username: user.username,
+        fullName: user.fullName,
+        email: user.email,
+        avatarImage: user.avatarImage,
+        blogs: user.blogs,
+        blogHistory: user.blogHistory,
+        likedBlogs: user.likedBlogs,
+        createdAt: user.createdAt,
+        updatedAt: user.updatedAt
+      }
 
-        const deleteLike = await Like.findByIdAndDelete(ifAlreadyLikedBySameUser[0]._id)
+      return res
+          .status(200)
+          .json(new ApiResponse(
+              200,
+              {
+                  blog,
+                  user:userResponse
+              },
+              "Blog unliked successfully"
+          ))
+  }
 
-        if(!deleteLike){
-            throw new ApiError(500, "Unable to unlike this post, Try again later")
-        }
+  await Like.create({
+      blog: blogId,
+      likedBy: user._id
+  })
 
-        const blog = await Blog.findById(blogId)
+  blog.noOfLikes += 1
+  await blog.save({validateBeforeSave: false})
 
-        if(!blog){
-            return new ApiError(500, "Blog is unliked but not updated on the blog noOfLikes!!!")
-        }
+  user.likedBlogs.push(blogId)
+  await user.save({validateBeforeSave: false})
 
-        blog.noOfLikes -= 1
-        await blog.save({validateBeforeSave:false})
+  const userResponse = {
+    _id: user._id,
+    username: user.username,
+    fullName: user.fullName,
+    email: user.email,
+    avatarImage: user.avatarImage,
+    blogs: user.blogs,
+    blogHistory: user.blogHistory,
+    likedBlogs: user.likedBlogs,
+    createdAt: user.createdAt,
+    updatedAt: user.updatedAt
+  }
 
-        userLikedBlogs.likedBlogs = userLikedBlogs.likedBlogs.filter(likedBlogId => {
-            return String(likedBlogId) !== String(blogId)
-        });
-        await userLikedBlogs.save({validateBeforeSave: false})
-
-        const userResponse = {
-          _id: userLikedBlogs._id,
-          username: userLikedBlogs.username,
-          fullName: userLikedBlogs.fullName,
-          email: userLikedBlogs.email,
-          avatarImage: userLikedBlogs.avatarImage,
-          blogs: userLikedBlogs.blogs,
-          blogHistory: userLikedBlogs.blogHistory,
-          likedBlogs: userLikedBlogs.likedBlogs,
-          createdAt: userLikedBlogs.createdAt,
-          updatedAt: userLikedBlogs.updatedAt
-        }
-
-        return res.status(200).json(new ApiResponse(200, {blog, user: userResponse}, "User unliked the blog"))
-    }
-
-    const likedDocument = await Like.create({
-        blog: blogId,
-        likedBy: user._id
-    })
-
-    if(!likedDocument){
-        throw new ApiError(500, "Error while registering the like")
-    }
-
-    const blog = await Blog.findByIdAndUpdate(blogId, {
-        $inc:{
-            noOfLikes: 1
-        }
-    }, {new : true})
-
-    if(!blog){
-        throw new ApiError(500, "Error while updating the likes of blog")
-    }
-
-    userLikedBlogs.likedBlogs.push(blogId)
-    await userLikedBlogs.save({validateBeforeSave: false})
-
-    const userResponse = {
-      _id: userLikedBlogs._id,
-      username: userLikedBlogs.username,
-      fullName: userLikedBlogs.fullName,
-      email: userLikedBlogs.email,
-      avatarImage: userLikedBlogs.avatarImage,
-      blogs: userLikedBlogs.blogs,
-      blogHistory: userLikedBlogs.blogHistory,
-      likedBlogs: userLikedBlogs.likedBlogs,
-      createdAt: userLikedBlogs.createdAt,
-      updatedAt: userLikedBlogs.updatedAt
-    }
-
-    return res
-        .status(200)
-        .json(new ApiResponse(
-            200,
-            {
-                blog, likedDocument, user: userResponse
-            },
-            "Successfully liked the blog"
-        ))
+  return res
+      .status(200)
+      .json(new ApiResponse(
+          200,
+          {
+              blog,
+              user:userResponse
+          },
+          "Blog liked successfully"
+      ))
 })
 
 export const getBlogById = asyncHandler(async(req, res) => {
@@ -407,49 +270,130 @@ export const getBlogById = asyncHandler(async(req, res) => {
 })
 
 export const comment = asyncHandler(async(req, res) => {
-    const blogId = req.params.id
-    const user = req.user
-    
-    if(!blogId){
-        throw new ApiError(400, "Blog id is invalid")
-    }
+  const user = req.user
+  const id = req.params.id
 
-    if(!user){
-        throw new ApiError(401, "Only logged in users can comment")
-    }
+  if(!user){
+      throw new ApiError(401, "unauthorised user, you must be logged in to post blogs")
+  }
 
-    const { content } = req.body
+  const { title, description } = req.body
 
-    if(!content || content.trim() === ""){
-        throw new ApiError(400, "Comment cannot be empty")
-    }
+  if(!description || description.trim() === ""){
+    throw new ApiError(400, "Content is required!!!")
+  }
 
-    const comment = await Comment.create({
-        content,
-        owner: user._id,
-        blog: blogId
-    })
+  const comment = await Blog.create({
+      title: title || "",
+      description,
+      isComment: true,
+      images: [],
+      owner : user._id
+  })
 
-    if(!comment){
-        throw new ApiError(500, "Error while creating comment!!! Please try again later")
-    }
+  if(!comment){
+      throw new ApiError(500, "Error while creating blog!!!")
+  }
+  
+  const userResponse = {
+    _id: user._id,
+    username: user.username,
+    fullName: user.fullName,
+    email: user.email,
+    avatarImage: user.avatarImage,
+    blogs: user.blogs,
+    blogHistory: user.blogHistory,
+    likedBlogs: user.likedBlogs,
+    createdAt: user.createdAt,
+    updatedAt: user.updatedAt
+  }
 
-    const blog = await Blog.findById(blogId)
-    
-    if(!blog){
-        throw new ApiError(400, "Error while fetching the blog")
-    }
+  const blog = await Blog.findById(id)
 
-    blog.comment.push(comment._id)
-    await blog.save({validateBeforeSave: false})
+  blog.comment.push(comment._id)
+  await blog.save({validateBeforeSave: false})
 
-    return res
-        .status(200)
-        .json(new ApiResponse(
-            200,
-            {
-                comment, blog
-            },
-            "comment posted successfully"
-        ))
+  return res
+    .status(200)
+    .json(new ApiResponse(
+      200,
+      {
+        comment, user: userResponse, blog: blog
+      },
+      "comment posted successfully"
+    ))
+})
+
+export const deleteComment = asyncHandler(async(req, res) => {
+  const blogId = req.params.blogId
+  const commentId = req.params.id
+  const user = req.user
+
+  if(!blogId || !commentId){
+      throw new ApiError(400, "Invalid blog id or comment id")
+  }
+
+  if(!user){
+      throw new ApiError(401, "Login to perform these actions")
+  }
+
+  const blog = await Blog.findById(blogId)
+
+  if(!blog){
+      throw new ApiError(400, "Invalid Blog Id")
+  }
+
+  const comment = await Blog.findById(commentId)
+
+  if(!comment){
+      throw new ApiError(400, "Invalid Comment Id")
+  }
+
+  if(!(String(user._id) == String(comment.owner))){
+      throw new ApiError(401, "You are unauthorised to delete this comment")
+  }
+
+  const deletedComment = await Blog.findByIdAndDelete(commentId)
+
+  if(!deletedComment){
+      throw new ApiError(500, "Error while deleting comment")
+  }
+
+  blog.comment = blog.comment.filter(comment_Id => {return String(comment_Id) !== String(commentId)})
+  await blog.save({validateBeforeSave:false})
+
+  return res
+      .status(200)
+      .json(new ApiResponse(
+          200,
+          {
+              deletedComment,
+              blog
+          },
+          "Comment Deleted Successfully"
+      ))
+})
+
+export const getBlogsUsingTags = asyncHandler(async(req, res) => {
+  const tags = req.query.tags
+
+  if(!tags || tags.length === 0){
+    throw new ApiError(400, "Tags are required")
+  }
+
+  const blogs = await Blog.find({tags: {$in: tags}}).sort({createdAt: -1})
+
+  if(!blogs){
+    throw new ApiError(500, "Error while fetching blogs")
+  }
+
+  return res
+      .status(200)
+      .json(new ApiResponse(
+          200,
+          {
+              blogs
+          },
+          "Fetched blogs successfully"
+      ))
 })
