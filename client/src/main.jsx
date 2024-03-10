@@ -88,6 +88,7 @@ const router = createBrowserRouter([
                 path: "*",
                 element: <h1>Wrong Path</h1>
             }
+
         ]
     }
 ])

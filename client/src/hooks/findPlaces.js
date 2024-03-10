@@ -1,10 +1,11 @@
 import axios from "axios"
 import { useEffect, useState } from "react"
 
-const usePlacesFetch = (postalCode=700091) => {
+const usePlacesFetch = (postalCode) => {
     const [loader, setLoader] = useState(true);
     const [places, setPlaces] = useState([]);
     useEffect(() => {
+        setLoader(true)
         ; (async () => {
             try {
                 const location = await axios.get(`https://maps.googleapis.com/maps/api/geocode/json?address=${postalCode}&key=${import.meta.env.VITE_GOOGLE_API_KEY}`);
@@ -30,6 +31,7 @@ const usePlacesFetch = (postalCode=700091) => {
                 {
                     headers: {"X-Goog-Api-Key": `${import.meta.env.VITE_GOOGLE_API_KEY}`, "X-Goog-FieldMask": 'places.displayName,places.nationalPhoneNumber,places.formattedAddress,places.rating,places.googleMapsUri,places.regularOpeningHours,places.reviews,places.photos,places.id'}
                 })
+                console.log(response.data.places);
                 setPlaces(response.data.places);
                 console.log(response.data.places)
             } catch (e) {
@@ -38,7 +40,7 @@ const usePlacesFetch = (postalCode=700091) => {
                 setLoader(false);
             }
         })()
-    }, [])
+    }, [postalCode])
     
     return [loader, places];
 }
