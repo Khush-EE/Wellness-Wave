@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { usePlacesFetch } from '../hooks/findPlaces.js';
 import { FaSearch } from 'react-icons/fa';
 import Spinner from '../components/Spinner.jsx';
 import bg3 from '../assets/bg3.jpg';
