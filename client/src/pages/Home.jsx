@@ -22,8 +22,6 @@ function Home() {
                     setHeadlines(headResponse.data.articles);
                     const articleResponse = await axios.get(`https://newsapi.org/v2/everything?q=health&apiKey=${import.meta.env.VITE_NEWS_API_KEY}&pageSize=6&page=${page}`)
                     setArticles(articleResponse.data.articles);
-                    console.log(headResponse.data.articles);
-                    // console.log(articleResponse.data.articles);
                 } catch (e) {
                     console.log(e);
                 } finally {
@@ -40,8 +38,8 @@ function Home() {
                 <div className='w-[30%] h-[100%] m-3 ml-5 top-0 left-0 z-10 flex flex-col items-start justify-start overflow-y-scroll'>
                     <h1 className='text-2xl font-bold underline mt-5'>Top Headlines Today</h1>
                     {
-                        headlines.map((headline) => (
-                            <div className='relative w-[100%]'>
+                        headlines.map((headline, index) => (
+                            <div className='relative w-[100%]' key={index}>
                                 <NavLink className='w-[100%] h-[20%] my-4 flex gap-6 items-center justify-start' to={headline.url} target='__blank'>
                                     <div className='w-[30%] h-[100%] bg-gray-200 p-2 rounded-sm'>
                                         <img src={headline.urlToImage || noImage} className='rounded-sm w-[100%] h-[100%] object-cover' />
@@ -65,8 +63,8 @@ function Home() {
                 <div className='w-[80%] h-full flex flex-col items-center justify-start'>
                     <h1 className='text-2xl font-bold underline mt-5'>Top Health News Articles Today</h1>
                     {articles.map((article, index) => (
-                        <NavLink to={article.url} target='__blank' className='flex flex-col items-center justify-start'>
-                            <div key={index} className='w-[90%] h-[30vh] rounded flex items-center justify-start gap-6 p-3 m-4 cursor-pointer hover:bg-gray-300 transition-colors'>
+                        <NavLink to={article.url} target='__blank' className='flex flex-col items-center justify-start' key={index}>
+                            <div className='w-[90%] h-[30vh] rounded flex items-center justify-start gap-6 p-3 m-4 cursor-pointer hover:bg-gray-300 transition-colors'>
                                 <div className='w-[30%] h-full rounded-lg bg-gray-100 border-2 border-gray-300'>
                                     <img src={article.urlToImage || noImage} className='w-[100%] h-[100%] p-4 object-cover rounded-lg' />
                                 </div>

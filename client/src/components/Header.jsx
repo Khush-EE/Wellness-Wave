@@ -27,7 +27,30 @@ function Header() {
         }
     ]
 
-    const [showOptions, setShowOptions] = useState(false)
+  const routes = [
+    {
+      path: '/',
+      name: 'Home',
+      status: true
+    },
+    {
+      path: '/findhelp',
+      name: 'Find Help',
+      status: true
+    },
+    {
+      path: '/resources',
+      name: 'Resources',
+      status: true
+    },
+    {
+      path: '/forum',
+      name: 'Forum',
+      status: user
+    }
+  ]
+
+  const [showOptions, setShowOptions] = useState(false)
 
   return (
     <nav className='px-5 md:px-10 flex items-center justify-start w-full h-[60px] shadow-2 border-gray-600 shadow-slate-300 bg-black bg-opacity-50 fixed top-0 left-0 z-20'>
@@ -65,6 +88,16 @@ function Header() {
 
           </li>
         </ul>
+      </div>
+      <ul className='flex items-center w-[60%] md:w-[40%] justify-end gap-4 text-yellow-600'>
+        {/* <li><i className='fa-solid fa-sun text-xl'></i></li> */}
+        {user && <li><i className='fa-solid fa-bell text-xl'></i></li>}
+        <li>
+          <img src={pic} className='w-[50px] h-[50px] object-cover rounded-full hidden' />
+          {!user && <NavLink className='hover:bg-yellow-600 w-full rounded-full cursor-pointer font-semibold hover:text-black p-2 px-4 hover:shadow-xl transition-colors shadow-slate-400' to='/signup'>Sign Up</NavLink>}
+          {!user && <NavLink className='hover:bg-yellow-600 w-full rounded-full cursor-pointer font-semibold hover:text-black p-2 px-4 hover:shadow-xl transition-colors shadow-slate-400' to='/login'>Sign In</NavLink>}
+        </li>
+      </ul>
     </nav>
 
   )

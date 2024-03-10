@@ -1,10 +1,7 @@
 import React, { useState } from 'react';
 import { FaSearch } from 'react-icons/fa';
 import Spinner from '../components/Spinner.jsx';
-import bg2 from '../assets/bg2.jpg';
-
-import { useEffect } from 'react';
-import { usePlacesFetch } from '../hooks/findPlaces.js'
+import bg3 from '../assets/bg3.jpg';
 function App() {
   const [search, setSearch] = useState();
   const [loader, places] = usePlacesFetch(search);
@@ -25,7 +22,8 @@ function App() {
     <>
       <div className='md:mt-0 md:mb-28 md:ml-0 md:mr-0'>
       
-      <div className='w-full h-full flex flex-col items-center justify-start gap-6 mt-[60px]' style={{ backgroundImage: "url('../assets/bg2.jpg')"}}>
+      <div className=' relative w-full h-full flex flex-col items-center justify-start gap-6 mt-[60px]' >
+        <img src={bg3} className=' absolute w-full h-screen object-cover object-top max-h-48 bg-opacity-30 ' style={{ background: 'linear-gradient(to top, white, transparent)' }} alt="" />
         <div className='w-full h-[15vh] flex items-center justify-center absolute z-10'>
          <div className=' rounded-xl bg-yellow-600 flex'>
          <input
