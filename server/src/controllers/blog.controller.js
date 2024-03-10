@@ -377,11 +377,12 @@ export const deleteComment = asyncHandler(async(req, res) => {
 export const getBlogsUsingTags = asyncHandler(async(req, res) => {
   const tags = req.query.tags
 
+  let blogs = []
   if(!tags || tags.length === 0){
-    throw new ApiError(400, "Tags are required")
+    blogs = await Blog.find({isComment: false}).sort({createdAt: -1})
+  }else{
+    blogs = await Blog.find({tags: {$in: tags}}).sort({createdAt: -1})
   }
-
-  const blogs = await Blog.find({tags: {$in: tags}}).sort({createdAt: -1})
 
   if(!blogs){
     throw new ApiError(500, "Error while fetching blogs")

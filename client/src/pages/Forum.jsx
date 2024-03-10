@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { getAllBlogs, likeBlog } from '../ApiRequests/blog'
+import { getAllBlogs, getBlogById, getBlogUsingTags, likeBlog } from '../ApiRequests/blog'
 import { useDispatch, useSelector } from 'react-redux'
 import { loginSuccess } from '../redux/user/userSlice'
 
@@ -10,12 +10,13 @@ function Forum() {
 
   const loggedInUser = useSelector(state => state.user?.currentUser)
   const dispatch = useDispatch()
+  const [tags, setTags] = useState([])
 
   useEffect(() => {
     ;(async() => {
       try{
         setLoading(true)
-        const response = await getAllBlogs();
+        const response = await getBlogUsingTags(tags);
         setBlogs(response["blogs"])
       } catch(err){
         console.error("Error while fetching all blogs:- ", err)
@@ -23,7 +24,7 @@ function Forum() {
         setLoading(false)
       }
     })()
-  }, [loggedInUser])
+  }, [loggedInUser, tags, setTags])
 
 
   return (
@@ -38,9 +39,18 @@ function Forum() {
         <div className='md:w-[20%] order-1 md:order-1'>
           <p className=' font-semibold'>Tags</p>
           <div className='flex pt-2 w-full flex-wrap gap-1'>
-            <p className='px-2 py-1 bg-slate-200 text-slate-600 rounded-md'>Depression</p>
-            <p className='px-2 py-1 bg-slate-200 text-slate-600 rounded-md'>ADHD</p>
-            <p className='px-2 py-1 bg-slate-200 text-slate-600 rounded-md'>Depression</p>
+            <p className='px-2 py-1 cursor-pointer bg-slate-200 text-slate-600 rounded-md' 
+            onClick={() => {
+              setTags([...tags, "Depression"])
+            }}>Depression</p>
+            <p className='px-2 py-1 cursor-pointer bg-slate-200 text-slate-600 rounded-md' 
+            onClick={() => {
+              setTags([...tags, "Anxiety"])
+            }}>Anxiety</p>
+            <p className='px-2 py-1 cursor-pointer bg-slate-200 text-slate-600 rounded-md' 
+            onClick={() => {
+              setTags([...tags, "Holla"])
+            }}>Depression</p>
           </div>
         </div>
         <div className='md:w-[55%] md:order-3 order-2'>

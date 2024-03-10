@@ -1,9 +1,12 @@
 import React, { useState } from 'react'
-import { NavLink } from 'react-router-dom'
+import { Link, NavLink } from 'react-router-dom'
 import pic from "../assets/profilePic.jpg"
 import logo from "../assets/logo.png"
+import { useSelector } from 'react-redux'
 
 function Header() {
+
+  const loggedInUser = useSelector(state => state.user?.currentUser)
 
     const routes = [
         {
@@ -45,9 +48,21 @@ function Header() {
         <ul className='flex items-center w-[60%] md:w-[40%] justify-end gap-4 text-yellow-600'>
           <li><i className='fa-solid fa-sun text-xl'></i></li>
           <li><i className='fa-solid fa-bell text-xl'></i></li>
-          <li>
-            <img src={pic} className='w-[50px] h-[50px] object-cover rounded-full hidden'/>
-            <p className='hover:bg-yellow-600 w-full rounded-full cursor-pointer font-semibold hover:text-black p-2 px-4 hover:shadow-xl transition-colors shadow-slate-400'>Sign Up</p>
+          <li className='flex'>
+
+            {
+              loggedInUser ? 
+
+              <Link to={`/profile/${loggedInUser._id}`} >
+                <img src={loggedInUser?.avatarImage} alt='nope' className='w-[50px] h-[50px] object-cover rounded-full'/>
+              </Link>
+              : 
+            <div>
+              <button className='hover:bg-yellow-600 rounded-full cursor-pointer font-semibold hover:text-black p-2 px-4 hover:shadow-xl transition-colors shadow-slate-400'>Sign Up</button>
+              <button className='hover:bg-yellow-600 rounded-full cursor-pointer font-semibold hover:text-black p-2 px-4 hover:shadow-xl transition-colors shadow-slate-400'>Log In</button>
+            </div>
+            }
+
           </li>
         </ul>
     </nav>

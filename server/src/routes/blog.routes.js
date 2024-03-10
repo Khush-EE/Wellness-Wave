@@ -8,8 +8,8 @@ const router = Router();
 
 
 router.route("/").get(getAllBlogs)
-router.route("/:id").get(getBlogById)
 router.route("/filter").get(getBlogsUsingTags)
+router.route("/:id").get(getBlogById)
 router.route("/:blogId/comment/:id").get(verifyJWT, getBlogById)
 
 // secured routes

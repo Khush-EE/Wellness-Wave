@@ -88,3 +88,17 @@ export const comment = async (id, title, description) => {
     throw error;
   }
 };
+
+export const getBlogUsingTags = async (tags) => {
+  let query = "";
+  if (tags && tags.length > 0) {
+    query = tags.map(tag => `tags=${tag}`).join('&');
+  }
+
+  try {
+    const response = await axios.get(`${url}/filter${query ? `?${query}` : ''}`);
+    return response.data.data;
+  } catch (error) {
+    throw error;
+  }
+}
