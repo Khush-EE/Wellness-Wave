@@ -283,27 +283,11 @@ export const comment = asyncHandler(async(req, res) => {
     throw new ApiError(400, "Content is required!!!")
   }
 
-  const imagesLocalPath = req.files?.images;
-
-  let images = [];
-
-  if(imagesLocalPath){
-    for (const image of imagesLocalPath) {
-      const img = await uploadOnCloud(image?.path);
-  
-      if (!img) {
-        throw new ApiError(500, "Error while uploading blog image to server");
-      }
-  
-      images.push(img?.url);
-    }
-  }
-
   const comment = await Blog.create({
       title: title || "",
       description,
       isComment: true,
-      images: images,
+      images: [],
       owner : user._id
   })
 
